@@ -1,0 +1,14 @@
+
+  _           _                   _   _             
+ (_)_ __  ___| |_ _ __ _   _  ___| |_(_) ___  _ __  
+ | | '_ \/ __| __| '__| | | |/ __| __| |/ _ \| '_ \ 
+ | | | | \__ \ |_| |  | |_| | (__| |_| | (_) | | | |
+ |_|_| |_|___/\__|_|   \__,_|\___|\__|_|\___/|_| |_|
+                                                                               
+
+1. Use the arrow key to move the snake
+2. Eat the foods and it will increase your score
+3. Avoid the obstacles to avoid death
+4. Reach 1000 points to win the game
+
+Press Enter to go back...
