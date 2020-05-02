@@ -39,3 +39,10 @@ C:\Users\User\Desktop\Snake2.0\Snake\obj\Debug\Snake.csprojAssemblyReference.cac
 C:\Users\User\Desktop\Snake2.0\Snake\obj\Debug\Snake.csproj.CoreCompileInputs.cache
 C:\Users\User\Desktop\Snake2.0\Snake\obj\Debug\Snake.exe
 C:\Users\User\Desktop\Snake2.0\Snake\obj\Debug\Snake.pdb
+D:\GitHub\Snake2.0\Snake\bin\Debug\Snake.exe.config
+D:\GitHub\Snake2.0\Snake\bin\Debug\Snake.exe
+D:\GitHub\Snake2.0\Snake\bin\Debug\Snake.pdb
+D:\GitHub\Snake2.0\Snake\obj\Debug\Snake.csprojAssemblyReference.cache
+D:\GitHub\Snake2.0\Snake\obj\Debug\Snake.csproj.CoreCompileInputs.cache
+D:\GitHub\Snake2.0\Snake\obj\Debug\Snake.exe
+D:\GitHub\Snake2.0\Snake\obj\Debug\Snake.pdb

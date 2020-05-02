@@ -12,7 +12,7 @@ class start
         string end = "loop";
         do
         {
-            string[] menu = System.IO.File.ReadAllLines(@"C:\Users\User\Desktop\Snake2.0\Snake\mainmenu.txt");
+            string[] menu = System.IO.File.ReadAllLines(@"D:\GitHub\Snake2.0\Snake\mainmenu.txt");
             foreach (string line in menu)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -35,7 +35,7 @@ class start
                 while (insloop)
                 {
                     Console.Clear();
-                    string[] help = System.IO.File.ReadAllLines(@"C: \Users\User\Desktop\Work\Snake\Snake\helppage.txt");
+                    string[] help = System.IO.File.ReadAllLines(@"D:\GitHub\Snake2.0\Snake\helppage.txt");
                     foreach (string line in help)
                     {
                         Console.ForegroundColor = ConsoleColor.Red;
@@ -79,7 +79,7 @@ class gamevictory
         string nametext = Console.ReadLine();
 
         using (System.IO.StreamWriter file =
-                new System.IO.StreamWriter(@"C:\Users\User\Desktop\Snake2.0\Snake\score.txt", true))
+                new System.IO.StreamWriter(@"D:\GitHub\Snake2.0\Snake\score.txt", true))
         {
             file.WriteLine(nametext + "(Won)" + " - " + userpoints.ToString()); // indicates that the user won the game
         }
@@ -114,7 +114,7 @@ class gameover
         string nametext = Console.ReadLine();
 
         using (System.IO.StreamWriter file =
-                new System.IO.StreamWriter(@"C:\Users\User\Desktop\Snake2.0\Snake\score.txt", true))
+                new System.IO.StreamWriter(@"D:\GitHub\Snake2.0\Snake\score.txt", true))
         {
             file.WriteLine(nametext + " - " + userpoints.ToString());
         }
@@ -152,10 +152,11 @@ namespace Snake
             start start = new start();
             start.mainmenu();
 
-            System.Media.SoundPlayer move = new System.Media.SoundPlayer(@"C:\Users\User\Desktop\Work\Snake\Snake\sound\move.wav");
-            System.Media.SoundPlayer eat = new System.Media.SoundPlayer(@"C:\Users\User\Desktop\Work\Snake\Snake\sound\eat.wav");
-            System.Media.SoundPlayer gameover = new System.Media.SoundPlayer(@"C:\Users\User\Desktop\Work\Snake\Snake\sound\gameover.wav");
-            System.Media.SoundPlayer crash = new System.Media.SoundPlayer(@"C:\Users\User\Desktop\Work\Snake\Snake\sound\crash.wav");
+            System.Media.SoundPlayer move = new System.Media.SoundPlayer(@"D:\GitHub\Snake2.0\Snake\sound\move.wav");
+            System.Media.SoundPlayer eat = new System.Media.SoundPlayer(@"D:\GitHub\Snake2.0\Snake\sound\eat.wav");
+            System.Media.SoundPlayer gameover = new System.Media.SoundPlayer(@"D:\GitHub\Snake2.0\Snake\sound\gameover.wav");
+            System.Media.SoundPlayer crash = new System.Media.SoundPlayer(@"D:\GitHub\Snake2.0\Snake\sound\crash.wav");
+            System.Media.SoundPlayer powerupsound = new System.Media.SoundPlayer(@"D:\GitHub\Snake2.0\Snake\sound\powerup.wav");
             byte right = 0;
             byte left = 1;
             byte down = 2;
@@ -201,7 +202,18 @@ namespace Snake
                 Console.Write("=");
             }
 
-            //Food Creation
+            List<Position> powerups = new List<Position>()
+            {
+                new Position(randomNumbersGenerator.Next(0, Console.WindowHeight),
+                   randomNumbersGenerator.Next(0, Console.WindowWidth))
+            };
+
+            foreach (Position powerup in powerups) // powerup is created
+            {
+               Console.ForegroundColor = ConsoleColor.Green;
+               Console.SetCursorPosition(powerup.y, powerup.x);
+               Console.Write("+");
+            }
 
             Position food;
             do //randomize where the food spawns
@@ -210,6 +222,7 @@ namespace Snake
                     randomNumbersGenerator.Next(0, Console.WindowWidth));
             }
             while (snakeElements.Contains(food) || obstacles.Contains(food)); //to make sure that food doesnt spawn on both snake and obstacles
+
 
 
             //Movement implementation
@@ -301,6 +314,30 @@ namespace Snake
                     lives -= 1;
                 }
 
+                if (snakeElements.Contains(snakeNewHead) || powerups.Contains(snakeNewHead))
+                {
+                    
+                    lives += 1;
+                    powerupsound.Play();
+                    
+                    
+                    //Position powerup = new Position(); // randomize the position of the obstacles
+                    //do
+                    //{
+                    //    powerup = new Position(randomNumbersGenerator.Next(0, Console.WindowHeight),
+                    //        randomNumbersGenerator.Next(0, Console.WindowWidth));
+                    //}
+                    //while (snakeElements.Contains(powerup) ||
+                    //    powerups.Contains(powerup) ||
+                    //    (food.x != powerup.x && food.y != powerup.y));
+                    //powerups.Add(powerup);
+                    //Console.SetCursorPosition(powerup.y, powerup.x);
+                    //Console.ForegroundColor = ConsoleColor.Green;
+                    //Console.Write("+");
+                    
+                }
+
+
                 if (lives == 0)
                 {
                     gameover.Play();
@@ -389,6 +426,9 @@ namespace Snake
                 sleepTime -= 0.01;
 
                 Thread.Sleep((int)sleepTime);
+
+                
+
             }
         }
     }
