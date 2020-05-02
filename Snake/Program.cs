@@ -85,6 +85,71 @@ class start
     }
 }
 
+class gamevictory
+{
+    public void gamevictoryscr(int userpoints)
+    {
+        Console.SetCursorPosition(40, 6);
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine("Congrats! You've won the game!");
+
+        Console.SetCursorPosition(43, 8);
+        Console.WriteLine("Please Enter your name:");
+
+        Console.SetCursorPosition(52, 10);
+        string nametext = Console.ReadLine();
+
+        using (System.IO.StreamWriter file =
+                new System.IO.StreamWriter(@"C:\Users\User\Desktop\Work\Snake\Snake\score.txt", true))
+        {
+            file.WriteLine(nametext + "(Won)" + " - " + userpoints.ToString()); // indicates that the user won the game
+        }
+        Console.SetCursorPosition(36, 15);
+        Console.WriteLine("Please press the ENTER key to exit the game.");
+        Console.SetCursorPosition(40, 17);
+        ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+        if (keyInfo.Key == ConsoleKey.Enter)
+        {
+            return;
+        }
+    }
+}
+
+class gameover
+{
+    public void gameoverscr(int userpoints)
+    {
+        Console.SetCursorPosition(50, 6);
+        Console.ForegroundColor = ConsoleColor.Red;
+        Console.WriteLine("Game over!");
+        //if (userPoints < 0) userPoints = 0;
+
+        Console.SetCursorPosition(45, 7);
+        Console.WriteLine("Your points are: {0}", userpoints);
+
+        Console.SetCursorPosition(43, 8);
+        Console.WriteLine("Please Enter your name:");
+
+        Console.SetCursorPosition(52, 10);
+        string nametext = Console.ReadLine();
+
+        using (System.IO.StreamWriter file =
+                new System.IO.StreamWriter(@"C:\Users\User\Desktop\Work\Snake\Snake\score.txt", true))
+        {
+            file.WriteLine(nametext + " - " + userpoints.ToString());
+        }
+        Console.SetCursorPosition(36, 15);
+        Console.WriteLine("Please press the ENTER key to exit the game."); //true here mean we won't output the key to the console, just cleaner in my opinion.
+
+        Console.SetCursorPosition(40, 17);
+        ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+        if (keyInfo.Key == ConsoleKey.Enter)
+        {
+            return;
+        }
+    }
+}
+
 namespace Snake
 {
     struct Position
@@ -100,6 +165,7 @@ namespace Snake
 
     class Program
     {
+        public static int lives = 3; // initialize the lives of the snake, in this case: 3.
         static void Main(string[] args)
         {
             // calling the main menu;
@@ -231,74 +297,44 @@ namespace Snake
 
                 // Show and update the score of the player
 
-                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.SetCursorPosition(Console.WindowWidth - 10, 0);
-                Console.Write("Score: {0}", userPoints);
+                Console.Write("Score: ");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.SetCursorPosition(Console.WindowWidth - 3, 0);
+                Console.Write(userPoints);
 
-                // the game will be over when the snake hits it body or the obstacles
+                // Show and update the lives of the snake
+
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.SetCursorPosition(Console.WindowWidth - 20, 0);
+                Console.WriteLine("Lives: ");
+                Console.ForegroundColor = ConsoleColor.White;
+                Console.SetCursorPosition(Console.WindowWidth - 13, 0);
+                Console.Write(lives);
+
+                // the game will be over when the snake hits it body or the obstacles 3 times
 
                 if (snakeElements.Contains(snakeNewHead) || obstacles.Contains(snakeNewHead))
                 {
-                    gameover.Play();
-
-                    Console.SetCursorPosition(50, 6);
-                    Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("Game over!");
-                    //if (userPoints < 0) userPoints = 0;
-
-                    Console.SetCursorPosition(45, 7);
-                    Console.WriteLine("Your points are: {0}", userPoints);
-
-                    Console.SetCursorPosition(43, 8);
-                    Console.WriteLine("Please Enter your name:");
-
-                    Console.SetCursorPosition(52, 10);
-                    string nametext = Console.ReadLine();
-
-                    using (System.IO.StreamWriter file =
-                            new System.IO.StreamWriter(@"C:\Users\User\Desktop\Work\Snake\Snake\score.txt", true))
-                    {
-                        file.WriteLine(nametext + " - " + userPoints.ToString());
-                    }
-                    Console.SetCursorPosition(36, 15);
-                    Console.WriteLine("Please press the ENTER key to exit the game."); //true here mean we won't output the key to the console, just cleaner in my opinion.
-
-                    Console.SetCursorPosition(40, 17);
-                    ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-                    if (keyInfo.Key == ConsoleKey.Enter)
-                    {
-                        return;
-                    }
+                    crash.Play();
+                    lives -= 1;
                 }
 
+                if (lives == 0)
+                {
+                    gameover.Play();
+                    gameover _gameover = new gameover();
+                    _gameover.gameoverscr(userPoints);
+                    break;
+                }
 
                 // The game will be over and user will win if they reached 1000 points
-                 
                 if (userPoints == 1000)
                 {
-                    Console.SetCursorPosition(40, 6);
-                    Console.ForegroundColor = ConsoleColor.Green;
-                    Console.WriteLine("Congrats! You've won the game!");
-
-                    Console.SetCursorPosition(43, 8);
-                    Console.WriteLine("Please Enter your name:");
-
-                    Console.SetCursorPosition(52, 10);
-                    string nametext = Console.ReadLine();
-
-                    using (System.IO.StreamWriter file =
-                            new System.IO.StreamWriter(@"C:\Users\User\Desktop\Work\Snake\Snake\score.txt", true))
-                    {
-                        file.WriteLine(nametext + "(Won)" + " - " + userPoints.ToString()); // indicates that the user won the game
-                    }
-                    Console.SetCursorPosition(36, 15);
-                    Console.WriteLine("Please press the ENTER key to exit the game.");
-                    Console.SetCursorPosition(40, 17);
-                    ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-                    if (keyInfo.Key == ConsoleKey.Enter)
-                    {
-                        return;
-                    }
+                    gamevictory _gamevictory = new gamevictory();
+                    _gamevictory.gamevictoryscr(userPoints);
+                    break;
                 }
 
                 // writes the head of the snake as ">","<","^","v" to the position it is declared
