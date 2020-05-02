@@ -10,6 +10,5 @@
                                       ▀                      
 
 			1. Play
-			2. Difficulties
-			3. Help
-			4. Exit
+			2. Help
+			3. Exit

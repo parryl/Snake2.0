@@ -12,7 +12,7 @@ class start
         string end = "loop";
         do
         {
-            string[] menu = System.IO.File.ReadAllLines(@"C: \Users\User\Desktop\Work\Snake\Snake\mainmenu.txt");
+            string[] menu = System.IO.File.ReadAllLines(@"C:\Users\User\Desktop\Snake2.0\Snake\mainmenu.txt");
             foreach (string line in menu)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
@@ -22,14 +22,14 @@ class start
             Console.SetCursorPosition(40, 16);
             Console.Write("Choice: ");
             Console.ForegroundColor = ConsoleColor.Red;
-            string choice = Console.ReadLine();
-            if (choice == "1")
+            ConsoleKeyInfo keyInput = Console.ReadKey();
+            if (keyInput.Key == ConsoleKey.D1)
             {
                 Console.Clear();
                 end = "exitloop";
             }
 
-            else if (choice == "2")
+            else if (keyInput.Key == ConsoleKey.D2)
             {
                 var insloop = true;
                 while (insloop)
@@ -50,29 +50,7 @@ class start
                     }
                 }
             }
-
-            else if (choice == "3")
-            {
-                var insloop = true;
-                while (insloop)
-                {
-                    Console.Clear();
-                    string[] help = System.IO.File.ReadAllLines(@"C: \Users\User\Desktop\Work\Snake\Snake\helppage.txt");
-                    foreach (string line in help)
-                    {
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("\t \t \t \t" + line);
-                    }
-                    Console.SetCursorPosition(57, 13);
-                    ConsoleKeyInfo userInput = Console.ReadKey();
-                    if (userInput.Key == ConsoleKey.Enter)
-                    {
-                        insloop = false;
-                        Console.Clear();
-                    }
-                }
-            }
-            else if (choice == "4")
+            else if (keyInput.Key == ConsoleKey.D3)
             {
                 Console.SetCursorPosition(40, 17);
                 System.Environment.Exit(1);
@@ -97,10 +75,11 @@ class gamevictory
         Console.WriteLine("Please Enter your name:");
 
         Console.SetCursorPosition(52, 10);
+        Console.ForegroundColor = ConsoleColor.White;
         string nametext = Console.ReadLine();
 
         using (System.IO.StreamWriter file =
-                new System.IO.StreamWriter(@"C:\Users\User\Desktop\Work\Snake\Snake\score.txt", true))
+                new System.IO.StreamWriter(@"C:\Users\User\Desktop\Snake2.0\Snake\score.txt", true))
         {
             file.WriteLine(nametext + "(Won)" + " - " + userpoints.ToString()); // indicates that the user won the game
         }
@@ -131,10 +110,11 @@ class gameover
         Console.WriteLine("Please Enter your name:");
 
         Console.SetCursorPosition(52, 10);
+        Console.ForegroundColor = ConsoleColor.White;
         string nametext = Console.ReadLine();
 
         using (System.IO.StreamWriter file =
-                new System.IO.StreamWriter(@"C:\Users\User\Desktop\Work\Snake\Snake\score.txt", true))
+                new System.IO.StreamWriter(@"C:\Users\User\Desktop\Snake2.0\Snake\score.txt", true))
         {
             file.WriteLine(nametext + " - " + userpoints.ToString());
         }
