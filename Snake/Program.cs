@@ -195,11 +195,11 @@ namespace Snake
                     randomNumbersGenerator.Next(0, Console.WindowWidth)),
             };
 
-            foreach (Position obstacle in obstacles) //write obstacle as "=" on declared position
+            foreach (Position obstacle in obstacles) //write obstacle as "▒" on declared position
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.SetCursorPosition(obstacle.y, obstacle.x);
-                Console.Write("=");
+                Console.Write("▒");
             }
 
             List<Position> powerups = new List<Position>()
@@ -421,7 +421,7 @@ namespace Snake
 
                 Console.SetCursorPosition(food.y, food.x);
                 Console.ForegroundColor = ConsoleColor.Yellow;
-                Console.Write("@");
+                Console.Write("♥♥");
 
                 sleepTime -= 0.01;
 
